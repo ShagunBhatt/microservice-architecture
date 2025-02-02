@@ -1,14 +1,13 @@
-package com.example.demo.rest;
+package com.example.demo.controller;
 
+import com.example.demo.DTOs.RegisterUserDto;
 import com.example.demo.entity.Employee;
 import com.example.demo.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +19,14 @@ public class EmployeeRestController {
 
     @Autowired
     EmployeeService employeeService ;
+
+    @PostMapping("/create")
+    public ResponseEntity<Employee> register(@RequestBody RegisterUserDto registerUserDto) {
+        //Create a user
+        Employee createdUser = employeeService.create(registerUserDto);
+
+        return ResponseEntity.ok(createdUser);
+    }
 
     @GetMapping("/all")
     public List<Employee> findAll(){

@@ -1,6 +1,7 @@
 package com.example.demo.configuration;
 
 import com.example.demo.repository.EmployeeRepository;
+import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +29,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
-    private final EmployeeRepository employeeRepository;
+    private final UserRepository userRepository;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
@@ -67,7 +68,7 @@ public class SecurityConfiguration {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> employeeRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return username -> userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     @Bean

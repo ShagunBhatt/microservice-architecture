@@ -2,8 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.DTOs.LoginUserDto;
 import com.example.demo.DTOs.RegisterUserDto;
-import com.example.demo.entity.Employee;
+import com.example.demo.entity.AppUsers;
 import com.example.demo.repository.EmployeeRepository;
+import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,22 +15,23 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-    private final EmployeeRepository employeeRepository;
+    private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
 
     private final AuthenticationManager authenticationManager;
 
-    public Employee signup(RegisterUserDto input) {
-        Employee user = new Employee();
+    public AppUsers signup(RegisterUserDto input) {
+        AppUsers user = new AppUsers();
         user.setName(input.getFullName());
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
+        user.setRole(input.getRole());
 
-        return employeeRepository.save(user);
+        return userRepository.save(user);
     }
 
-    public Employee authenticate(LoginUserDto input) {
+    public AppUsers authenticate(LoginUserDto input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         input.getEmail(),
@@ -37,7 +39,7 @@ public class AuthenticationService {
                 )
         );
 
-        return employeeRepository.findByEmail(input.getEmail())
+        return userRepository.findByEmail(input.getEmail())
                 .orElseThrow();
     }
 }

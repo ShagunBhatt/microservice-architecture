@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.DTOs.RegisterUserDto;
 import com.example.demo.entity.Employee;
 import com.example.demo.exceptions.EmployeeNotFoundException;
 import com.example.demo.repository.EmployeeRepository;
@@ -15,6 +16,14 @@ public class EmployeeService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    public Employee create(RegisterUserDto input) {
+        Employee emp = new Employee();
+        emp.setName(input.getName());
+        emp.setAddress(input.getAddress());
+
+        return employeeRepository.save(emp);
+    }
 
     public List<Employee> findAll() {
         return employeeRepository.findAll();
