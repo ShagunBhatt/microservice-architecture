@@ -1,6 +1,5 @@
 package com.example.demo.exceptions;
 
-import jakarta.persistence.Entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

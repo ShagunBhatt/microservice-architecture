@@ -3,7 +3,6 @@ package com.example.demo.service;
 import com.example.demo.DTOs.LoginUserDto;
 import com.example.demo.DTOs.RegisterUserDto;
 import com.example.demo.entity.AppUsers;
-import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
